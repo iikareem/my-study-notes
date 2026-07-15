@@ -1,0 +1,10 @@
+flowchart TB
+  subgraph t1["Type 1 — Bare Metal"]
+    direction TB
+    g1["Guest OS"] --> h1["Hypervisor"] --> hw1["Hardware"]
+  end
+
+  subgraph t2["Type 2 — Hosted"]
+    direction TB
+    g2["Guest OS"] --> h2["Hypervisor"] --> host["Host OS"] --> hw2["Hardware"]
+  end

@@ -1,0 +1,8 @@
+flowchart TB
+  HW["Hardware"] --> K["Linux Kernel"]
+  K --> NS["Namespaces — what can the process see?"]
+  K --> CG["cgroups — how much can it consume?"]
+  K --> OF["OverlayFS — filesystem view"]
+  OF --> RT["Container Runtime — runc / containerd"]
+  RT --> DE["Docker Engine"]
+  DE --> APP["Your App — a userspace process"]

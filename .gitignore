@@ -1,0 +1,6 @@
+.DS_Store
+.obsidian/
+*.base
+Thumbs.db
+.idea/
+.vscode/

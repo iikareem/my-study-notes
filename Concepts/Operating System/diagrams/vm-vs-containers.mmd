@@ -1,0 +1,22 @@
+flowchart TB
+  subgraph VM["Virtual Machine"]
+    direction TB
+    VM1["Guest OS kernel + userspace + App"]
+    VM2["Guest OS kernel + userspace + App"]
+    HY["Hypervisor"]
+    HW["Host OS + Hardware"]
+    VM1 --> HY
+    VM2 --> HY
+    HY --> HW
+  end
+
+  subgraph CT["Containers"]
+    direction TB
+    U["ubuntu userspace process in namespaces"]
+    A["alpine userspace process in namespaces"]
+    NS["namespaces + cgroups"]
+    KER["Single Host Linux Kernel"]
+    U --> NS
+    A --> NS
+    NS --> KER
+  end

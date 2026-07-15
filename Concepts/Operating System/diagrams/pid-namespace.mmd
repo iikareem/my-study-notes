@@ -1,0 +1,13 @@
+flowchart LR
+  subgraph Host["Host view"]
+    direction TB
+    H1["PID 1 → systemd"]
+    H2["PID 4721 → nginx"]
+    H3["PID 4722 → worker"]
+  end
+
+  subgraph Container["Container view"]
+    direction TB
+    C1["PID 1 → nginx"]
+    C2["PID 2 → worker"]
+  end

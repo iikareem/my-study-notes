@@ -1,0 +1,3 @@
+flowchart LR
+  Bridge["docker0 bridge"] --- Veth["veth_host_end"]
+  Veth --- Eth0["eth0 / container NIC"]
