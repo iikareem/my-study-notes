@@ -15,6 +15,7 @@ Lasting knowledge — grouped for learning and review.
 ## Network
 
 - [[TCP & Connection Lifecycle]] *(merged hub)*
+- [[TCP Connections, Ephemeral Ports, File Descriptors & Connection Pooling]] · [[C10K Problem]]
 - [[HTTP Connections]] · [[TCP TIME_WAIT — Recap]] · [[Congestion Window]]
 - [[HTTP]] · [[WebSocket vs Server-Sent Events (SSE)]]
 - [[ARP]] · [[CIDR Notation]] · [[IP Address]] · [[MAC Address]]
@@ -42,6 +43,8 @@ Lasting knowledge — grouped for learning and review.
 - [[Isolation Level and MVCC]] · [[VACUUM]] · [[WAL]] · [[HOT]] · [[TOAST Table]]
 - [[Lock in Database]] · [[Explain Analyze]] · [[pg_stat_statements]] · [[pgstatindex]]
 - [[BRIN]] · [[Btree vs LSM]] · [[LFC]] · [[Hint Bit Update]] · [[Prewarm]]
+- [[Prepared Statements — The Optimization Story]] · [[Extended Statistics in PostgreSQL]]
+- [[PostgreSQL Bulk Updates The Hidden Cost of Doing It All at Once]] · [[Monotonically Increasing vs Random Index Writes]]
 - [[PostgreSQL Parallel Query Execution]] · [[PostgreSQL 18]]
 - [[PostgreSQL Memory Management Understanding the 25% Shared Buffers Rule]]
 - [[Database Architecture Notes PostgreSQL vs MySQL]] · [[PG and MySQL]]
@@ -52,7 +55,7 @@ Lasting knowledge — grouped for learning and review.
 ## Backend
 
 - [[Node.js Event Loop & Internals]] *(merged)*
-- [[TypeScript Promises]] · [[Request Lifecycle in Nest]]
+- [[V8 Hidden Classes]] · [[TypeScript Promises]] · [[Request Lifecycle in Nest]]
 - [[Message Brokers Guide — RabbitMQ & Kafka]] · [[Messaging RabbitMQ and Kafka]]
 - [[DDD]] · [[Parquet]] · [[Programming Language]]
 
@@ -71,8 +74,9 @@ Lasting knowledge — grouped for learning and review.
 - [[Process]] · [[Process Life Cycle]] · [[Process Management]] · [[Worker]]
 - [[Kernel]] · [[Virtual Memory]] · [[Context Switching]] · [[vCPU]]
 - [[Memory Fragmentation]] · [[Memory Hierarchy Closest to CPU]] · [[Cache Line IO Block Read]] · [[Fetch Data from Disk to RAM]]
+- [[CPU Pipeline & Branch Prediction]]
 - [[Hypervisor]] · [[Virtualization vs Containerization]] · [[VMs vs Containers]]
-- Concurrency: [[Concurrency & Multitasking From Zero to Production-Ready]] · [[Concurrency Complete Guide]] · [[MN Scheduling]] · [[context switch overhead]]
+- Concurrency: [[Concurrency & Synchronization Primitives — Code Level Guide]] · [[Concurrency & Multitasking From Zero to Production-Ready]] · [[Concurrency Complete Guide]] · [[MN Scheduling]] · [[context switch overhead]]
 
 ## Design Patterns & OOP
 

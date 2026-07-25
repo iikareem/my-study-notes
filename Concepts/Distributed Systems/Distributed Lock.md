@@ -8,6 +8,9 @@ tags:
 
 # Distributed Synchronization: Locks, Redlock & Fencing Tokens
 
+
+> **Published / blog version:** Hashnode article lives on the blog (not duplicated here) — https://kareemdev.hashnode.dev
+
 When multiple servers compete for the same resource, you need a way to say **"only one of you goes at a time."** This guide walks through how that works, what breaks, and how the industry actually solves it.
 
 ---

@@ -5,6 +5,9 @@ tags:
 
 ## **Mechanical Sympathy — Writing Code That Understands the Machine It Runs On**
 
+
+> **Published / blog version:** Hashnode article lives on the blog (not duplicated here) — https://kareemdev.hashnode.dev
+
 This one is different from the others. It's not a single algorithm or protocol. It's a **philosophy of engineering** — and the engineers who internalize it write code that is sometimes 10x, 50x, even 100x faster than functionally identical code, without changing the logic at all.
 
 The name comes from Formula 1 racing. Jackie Stewart, a world champion driver, said the best drivers have **mechanical sympathy** — they understand how the car works at a mechanical level, and that understanding makes them faster. They don't fight the machine. They work with it.

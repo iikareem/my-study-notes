@@ -14,7 +14,9 @@ tags:
 
 - [[HTTP Connections]] — HTTP/1.0 → 1.1 → 2/3 connection reuse & multiplexing
 - [[TCP TIME_WAIT — Recap]] — why TIME_WAIT exists and how to handle it
-- [[Congestion Window]] — flow control vs congestion control, cwnd
+- [[Congestion Window]]
+- [[TCP Connections, Ephemeral Ports, File Descriptors & Connection Pooling]] — 4-tuple, ephemeral ports, FDs, pooling
+- [[C10K Problem]] — scaling concurrent connections — flow control vs congestion control, cwnd
 - [[HOL]] — head-of-line blocking
 - [[WebSocket vs Server-Sent Events (SSE)]] — long-lived alternatives
 
