@@ -11,14 +11,22 @@ tags:
 
 # System Design MOC
 
-Patterns for scaling, storage, and realtime — connected to database & messaging concepts.
+Patterns for scaling, storage, async work, and realtime — connected to database & messaging concepts.
 
 ## Scaling
 
 - [[Scaling Reads vs Writes]] — **start here** (complete guide)
 - [[Scaling Reads]] — read progression (replicas, cache, hot keys)
-- [[Scaling Writes]] — write path, sharding, primary choke points
+- [[Scaling Writes]] — write path, domain partition → shard, primary choke points
 - [[Database Replication]] — RPO/RTO, sync modes, WAL
+
+## Contention & correctness
+
+- [[Dealing with Contention in System Design]] — race conditions on scarce resources (locks, optimistic concurrency, queues)
+
+## Async & long-running work
+
+- [[Long Running Tasks]] — job queues, workers, status tracking, orchestration
 
 ## Storage & media
 
@@ -36,7 +44,7 @@ Patterns for scaling, storage, and realtime — connected to database & messagin
 
 ## Related concepts
 
-- [[Thundering Herd Problem]] · [[Consistent Hashing]] · [[Backpressure]]
+- [[Thundering Herd Problem]] · [[Consistent Hashing]] · [[Backpressure]] · [[Distributed Lock]]
 - [[WAL]] · [[Isolation Level and MVCC]] · [[Scaling Reads]] · [[Scaling Writes]]
 
 ---

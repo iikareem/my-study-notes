@@ -187,15 +187,41 @@ So the “spike” is a **feedback loop**: queueing → lock contention → retr
 - Peak can be 10–100× baseline; sizing for peak is wasteful and still may fail.
 - **Replicas do not scale writes** — every INSERT/UPDATE/DELETE still hits the primary first; more replicas can add WAL fan-out cost.
 
-When write QPS, data size, or contention exceeds one primary — **split the write domain** (shard) and/or **buffer/shed** so the peak never hits the commit path at full force.
+When write QPS, data size, or contention exceeds one primary — **partition by domain first**, then **shard** if a single partition is still saturated, and/or **buffer/shed** so the peak never hits the commit path at full force.
 
 ---
 
-## The Two Core Approaches
+## The Write Progression
 
-### 1. Sharding (Horizontal Partitioning)
+Work through these layers in order. Each one buys headroom before you need the next. Do not jump to sharding first.
 
-Split the dataset across multiple database servers (shards). Each shard is its own primary with its own buffer pool, WAL, locks, checkpoints, and vacuum — so the expensive write-path costs are no longer global.
+### 1. Partition by Domain (often first)
+
+Separate **users**, **orders**, and **inventory** into independent databases or schemas. Separate **critical writes** (payments, auth) from **best-effort writes** (likes, analytics). Split hot vs cold paths when one table’s churn pollutes another.
+
+This is the cheapest isolation step — and it should come **before** horizontal sharding.
+
+**Why it helps the write path:**
+
+- Likes, analytics, and payments on one primary share the same WAL, locks, checkpoints, and vacuum. An analytics spike can stall payment commits.
+- After a domain split, a likes storm no longer shares those resources with your payment flow.
+- You get blast-radius isolation without picking a shard key, building a router, or planning a re-shard.
+
+**What it looks like in practice:**
+
+- Separate DBs/schemas per domain (users DB vs orders DB vs inventory DB)
+- Hot vs cold write paths (recent activity vs archived records)
+- Event partitions by `topic` / `region` (e.g. Kafka) so non-critical ingest cannot crowd the critical commit path
+
+**What it does *not* solve:** a single hot domain can still saturate its own primary. When one partition is the bottleneck — even after vertical scaling and cutting unnecessary write work — move to horizontal sharding.
+
+**When:** always try this first when unrelated write workloads share a primary. It is cheap isolation with almost no cross-shard complexity.
+
+---
+
+### 2. Shard Horizontally
+
+Split the *same kind of data* across multiple database servers (shards). Each shard is its own primary with its own buffer pool, WAL, locks, checkpoints, and vacuum — so the expensive write-path costs are no longer global.
 
 ```
 User ID 1–1M     → Shard A
@@ -218,9 +244,12 @@ User ID 2M–3M    → Shard C
 
 #### How routing works
 
-- **Range-based** — `user_id ∈ [1M, 2M)` → Shard B. Simple; uneven ranges recreate hot shards.
-- **Hash-based** — `shard = hash(user_id) % N`. Even spread; changing `N` reshuffles almost every key.
-- **Directory** — metadata `key → shard`. Flexible moves; directory is critical infra.
+| Strategy | How it works | Trade-off |
+| --- | --- | --- |
+| Range | `user_id 1–1M → Shard A` | Simple to reason about; uneven growth creates hot shards |
+| Hash (`% N`) | `hash(key) % num_shards` | Even distribution; changing N reshuffles nearly everything |
+| Directory | Lookup table maps key to shard | Flexible; the lookup table becomes a critical-path dependency |
+| **Consistent hashing** | Ring-based; adding a shard moves ~`1/N` of keys | Best for elastic capacity; virtual nodes improve balance |
 
 #### Consistent hashing
 
@@ -230,19 +259,7 @@ Plain `hash(key) % N` remaps most keys when N changes → massive data movement 
 
 **Interview use:** shard by `user_id` with consistent hashing so growth does not reshuffle everything; pair with a migration plan (dual-write, shadow reads, bounded reshard windows).
 
-**When:** one primary cannot sustain write throughput, storage, or spikes — even after vertical scaling and cutting unnecessary indexes/work — and you can choose a key that co-locates related writes.
-
----
-
-### 2. Partitioning (Logical Separation)
-
-Split by type, feature, or domain before full sharding:
-
-- Separate DBs/tables for **users**, **orders**, **inventory**
-- Hot vs cold write paths
-- Event partitions by `topic` / `region` (e.g. Kafka)
-
-**Why it helps the write path:** likes, analytics, and payments on one primary share WAL, locks, and checkpoints — an analytics spike can stall payments. Separate them so non-critical write storms cannot take the critical commit path.
+**When:** one primary (or one domain partition) cannot sustain write throughput, storage, or spikes — even after vertical scaling and cutting unnecessary indexes/work — and you can choose a key that co-locates related writes.
 
 ---
 
@@ -327,9 +344,9 @@ A partially degraded system beats a fully crashed one.
 | Approach | Benefit | Cost |
 | --- | --- | --- |
 | Bigger single primary | Simple; strong consistency | One WAL/lock domain; spike collapse |
-| Sharding | Scale write domains; isolate blast radius | Routing; cross-shard work; re-shard pain; hot keys |
-| Consistent hashing | Bounded key movement on scale-out | Rebalance/migration still required |
-| Domain partitioning | Isolates write-path contention cheaply | One hot partition can still burn |
+| Domain partitioning | Cheap isolation; quick to implement | A single hot partition can still saturate |
+| Horizontal sharding | Scales write domains linearly | Cross-shard complexity; re-shard pain; hot keys |
+| Consistent hashing | Bounded key movement on scale-out | Still requires migration discipline |
 | Write queues | Absorbs bursts; protects fsync path | Eventual visibility; lag; need idempotency |
 | Load shedding | Survive extreme load | Lost/delayed writes; needs priorities |
 
@@ -340,7 +357,7 @@ A partially degraded system beats a fully crashed one.
 1. **Walk the write path briefly** — buffer pool → MVCC → dirty pages → **WAL fsync commit** → checkpoint → vacuum.
 2. **Name the costly parts** — fsync latency, index amplification, hot-row locks, checkpoint/vacuum under churn.
 3. **Why one node fails** — those costs share one machine; spikes → retries → congestion collapse. Replicas don’t fix writes.
-4. **Why shard** — N WAL/lock domains; justify the shard key; consistent hashing for growth.
+4. **Progression** — domain partition first (cheap isolation), then shard (N WAL/lock domains); justify the shard key; consistent hashing for growth.
 5. **Under pressure** — partition → shard → queue → shed; call out hot spots and backlog.
 
 ## See also

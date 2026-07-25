@@ -33,7 +33,8 @@ Lasting knowledge — grouped for learning and review.
 → Full hub: [[System Design MOC]]
 
 - [[Scaling Reads vs Writes]] · [[Scaling Reads]] · [[Scaling Writes]]
-- [[Large Blobs]] · [[Database Replication]] · [[Realtime Updates]]
+- [[Dealing with Contention in System Design]] · [[Long Running Tasks]] · [[Large Blobs]]
+- [[Database Replication]] · [[Realtime Updates]]
 - [[Scaling PostgreSQL to 800 Million Users]]
 
 ## Database
