@@ -11,7 +11,7 @@ tags:
 
 # System Design MOC
 
-Patterns for scaling and realtime — connected to database & messaging concepts.
+Patterns for scaling, storage, and realtime — connected to database & messaging concepts.
 
 ## Scaling
 
@@ -19,6 +19,11 @@ Patterns for scaling and realtime — connected to database & messaging concepts
 - [[Scaling Reads]] — read progression (replicas, cache, hot keys)
 - [[Scaling Writes]] — write path, sharding, primary choke points
 - [[Database Replication]] — RPO/RTO, sync modes, WAL
+
+## Storage & media
+
+- [[Large Blobs]] — uploads/downloads without routing bytes through the app (presigned URLs, CDN, resumable uploads)
+- Related AWS service detail: [[S3]]
 
 ## Realtime
 
