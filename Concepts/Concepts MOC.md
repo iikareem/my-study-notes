@@ -51,6 +51,7 @@ Lasting knowledge — grouped for learning and review.
 - [[Database Replication]] · [[Search Types Mandatory Knowledge Guide]] · [[Books]]
 - Join algorithms: [[Hash Join]] · [[Nested Loop Join]]
 - Design / optimization: [[3VL]] · [[Where different condition types]] · [[join_collapse_limit]]
+- OLAP foundations: [[00 OLAP MOC|OLAP MOC]] · [[01 Module 1 — OLTP vs OLAP Mental Model|OLTP vs OLAP]] · [[02 Module 2 — Columnar Execution Internals|Columnar Internals]] · [[04 Module 3 — Parquet & File Formats|Parquet]] · [[05 Module 4 — Partitioning & Data Layout|Partitioning]] · [[06 Module 5 — Star Schemas & Dimensional Design|Star Schemas]]
 
 ## Backend
 
