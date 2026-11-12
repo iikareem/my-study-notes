@@ -17,7 +17,7 @@ Organized for [Obsidian](https://obsidian.md) (wikilinks + tags), but readable a
 
 ## What’s inside
 
-- **Concepts** — network, TCP/HTTP, distributed systems, PostgreSQL, messaging, observability, OS, devops, system design
+- **Concepts** — network, TCP/HTTP, distributed systems, PostgreSQL/OLAP, messaging, observability, OS, devops, system design, security
 - **Problems** — interview-style scenarios (each with a scenario note + companion deep dive)
 - **Code** — readability tips, design patterns in practice, DSA cheatsheets
 - **AWS** — Developer Associate–oriented notes (services, quizzes, hints, practice)

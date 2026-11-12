@@ -63,6 +63,19 @@ tags:
     - [[06 Module 5 — Star Schemas & Dimensional Design#5.7 Snowflake schema vs star schema|5.7 Snowflake schema vs star schema]]
     - [[06 Module 5 — Star Schemas & Dimensional Design#5.8 Common modeling mistakes|5.8 Common modeling mistakes]]
     - [[06 Module 5 — Star Schemas & Dimensional Design#5.9 Postgres → Dimensional Model Translation Table|5.9 Postgres → Dimensional Model Translation Table]]
+- [[07 Module 6 — Ingestion Thinking|Module 6 — Ingestion Thinking]]
+- [[08 Module 7 — DuckDB in Practice|Module 7 — DuckDB in Practice]]
+- [[09 Module 8 - Query Patterns That Matter in OLAP|Module 8 — Query Patterns That Matter in OLAP]]
+
+## Start / path
+
+- [[OLAP Starter Path — Think OLAP First]]
+
+## Pitwall case study
+
+- [[Pitwall Project — Everything We Learned]]
+- [[Pitwall ETL Lesson — Developer Takeaways]]
+- [[Pitwall Star Schema Diagram]]
 
 ---
 
